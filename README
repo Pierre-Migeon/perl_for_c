@@ -1,0 +1,1 @@
+These are some simple scripts that are useful for doing things while you're writing C code. For instance, one code counts the number of times a function occurs in the code, and so you can tell if you have any unused orphan functions that you can toss out. The other one takes new code that you've written, and updates the header file with the new functions, removing any duplicates.
