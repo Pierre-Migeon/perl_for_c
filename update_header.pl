@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-# description: Takes all of the .c files in the directory, and makes sure that the header file is up-to-date with all functions. Any new function protypes that are missing from the header file are added into it.
+# description: Takes all of the .c files in the directory, and makes sure that the header file is up-to-date with all functions. Any new function protypes that are missing from the header file are added into it. Currently also adds two tabs between the output type and the function name, for the purposes of formatting.
 
 # usage: perl update_header.pl code.c header.h
 
@@ -16,6 +16,7 @@ while (<IN>)
 	if (is_header($_))
 	{
 		chomp $_;
+		$_ =~ s/(^void|^int|^t_llist|^char)(\s+|\t)(.*)/$1\t\t$3/;
 		$function_headers{"$_;\n"} = 0;
 	}
 }
@@ -54,7 +55,8 @@ while (<IN>)
 		print $fh "\n";
 	}
 	unless ($_ =~ m/^$/ && $header_flag || $seen_lines{$_} > 1) {
-		 print $fh $_;
+		$_ =~ s/(^void|^int|^t_llist|^char)(\s+|\t)(.*)/$1\t\t$3/;
+		print $fh $_;
 	}
 }
 close IN;
